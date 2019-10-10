@@ -1,3 +1,3 @@
-module github.com/kolach/go-deepcopy
+module github.com/kolach/deepcopy
 
 go 1.12
