@@ -1,4 +1,4 @@
-// deepcopy makes deep copies of things. A standard copy will copy the
+// Package deepcopy makes deep copies of things. A standard copy will copy the
 // pointers: deep copy copies the values pointed to.  Unexported field
 // values are not copied.
 //
@@ -40,6 +40,22 @@ func Copy(src interface{}) interface{} {
 
 	// Return the copy as an interface.
 	return cpy.Interface()
+}
+
+// CopyInto copies src into dst
+func CopyInto(src interface{}, dst interface{}) {
+	if src == nil {
+		return
+	}
+
+	// Make the interface a reflect.Value
+	srcVal := reflect.ValueOf(src)
+
+	// Make a copy of the same type as the original.
+	cpy := reflect.ValueOf(dst).Elem()
+
+	// Recursively copy the original.
+	copyRecursive(srcVal, cpy)
 }
 
 // copyRecursive does the actual copying of the interface. It currently has
